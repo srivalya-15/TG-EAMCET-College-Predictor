@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: tg-eamcet-college-predictor
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: production
