@@ -20,16 +20,14 @@ public class CollegeService {
     // not only colleges they're guaranteed to clear.
     private static final int RANK_BUFFER = 1000;
 
-    public List<College> predictColleges(int rank, String gender, String category, String phase, List<String> branches) {
+    public List<College> predictColleges(int rank, String gender, String category, List<String> branches) {
         List<College> allColleges = excelDataLoader.getColleges();
 
         int eligibleRank = Math.max(rank - RANK_BUFFER, 1);
         List<String> branchFilter = (branches == null) ? List.of() : branches;
         boolean noBranchFilter = branchFilter.isEmpty();
-        boolean noPhaseFilter = (phase == null || phase.isBlank());
 
         return allColleges.stream()
-                .filter(college -> noPhaseFilter || phase.equalsIgnoreCase(college.getPhase()))
                 .filter(college -> noBranchFilter || branchFilter.contains(college.getBranchCode()))
                 .filter(college -> {
                     int cutoffRank = getCutoffRank(college, gender, category);
@@ -83,9 +81,5 @@ public class CollegeService {
                 .map(e -> new BranchDto(e.getKey(), e.getValue()))
                 .sorted((a, b) -> a.code.compareTo(b.code))
                 .collect(Collectors.toList());
-    }
-
-    public List<String> getAvailablePhases() {
-        return excelDataLoader.getAvailablePhases();
     }
 }

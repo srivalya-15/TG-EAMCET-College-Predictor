@@ -23,7 +23,6 @@ public class College {
     private String collegeType;
     private String branchCode;
     private String branchName;
-    private String phase;
     private int ocBoys;
     private int ocGirls;
     private int bcaBoys;

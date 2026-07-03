@@ -20,18 +20,12 @@ public class CollegeController {
         return collegeService.getAllBranchesWithNames();
     }
 
-    @GetMapping("/api/phases")
-    public List<String> getPhases() {
-        return collegeService.getAvailablePhases();
-    }
-
     @PostMapping("/api/predict")
     public List<College> predictColleges(
             @RequestParam int rank,
             @RequestParam String gender,
             @RequestParam String category,
-            @RequestParam(required = false) String phase,
             @RequestParam(required = false) List<String> branches) {
-        return collegeService.predictColleges(rank, gender, category, phase, branches);
+        return collegeService.predictColleges(rank, gender, category, branches);
     }
 }
